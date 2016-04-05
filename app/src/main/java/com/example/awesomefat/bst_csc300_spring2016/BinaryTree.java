@@ -16,6 +16,32 @@ public class BinaryTree
         this.rightTree = null;
     }
 
+    public void addTree(BinaryTree toAdd)
+    {
+        if(toAdd.payload > this.payload)
+        {
+            if(this.rightTree != null)
+            {
+                this.rightTree.addTree(toAdd);
+            }
+            else
+            {
+                this.rightTree = toAdd;
+            }
+        }
+        else
+        {
+            if(this.leftTree != null)
+            {
+                this.leftTree.addTree(toAdd);
+            }
+            else
+            {
+                this.leftTree = toAdd;
+            }
+        }
+    }
+
     public boolean isOutOfBalance()
     {
         int leftDepth = this.leftTree == null?0:this.leftTree.depth();
@@ -141,5 +167,15 @@ public class BinaryTree
     public BinaryTree getRightTree()
     {
         return rightTree;
+    }
+
+    public void clearLeftTree()
+    {
+        leftTree = null;
+    }
+
+    public void clearRightTree()
+    {
+        rightTree = null;
     }
 }

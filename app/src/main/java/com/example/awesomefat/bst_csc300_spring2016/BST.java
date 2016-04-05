@@ -143,4 +143,22 @@ public class BST
             System.out.println("In-Order: " + this.root.displayInOrder());
         }
     }
+
+    public void balanceLL()
+    {
+        BinaryTree newRoot = this.root.getLeftTree();
+        BinaryTree oldRoot = this.root;
+        oldRoot.clearLeftTree();
+        this.root = newRoot;
+        this.root.addTree(oldRoot);
+    }
+
+    public void balanceRR()
+    {
+        BinaryTree newRoot = this.root.getRightTree();
+        BinaryTree oldRoot = this.root;
+        oldRoot.clearRightTree();
+        this.root = newRoot;
+        this.root.addTree(oldRoot);
+    }
 }
