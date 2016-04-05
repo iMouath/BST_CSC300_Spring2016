@@ -16,6 +16,47 @@ public class BinaryTree
         this.rightTree = null;
     }
 
+    public boolean isOutOfBalance()
+    {
+        int leftDepth = this.leftTree == null?0:this.leftTree.depth();
+        int rightDepth = this.rightTree == null?0:this.rightTree.depth();
+        return Math.abs(leftDepth-rightDepth) > 1;
+    }
+
+    public String outOfBalanceSecondarily(char val, String lastTurn)
+    {
+        //are we looking at a matching payload and are we a leaf node
+        if(this.payload == val && this.leftTree == null)
+        {
+            //we are looking at THE last tree added
+            //return the last turn we made
+            return lastTurn;
+        }
+        else
+        {
+            //I might have a payload that matches val, or I am still looking for a matching payload
+            //in either case, I am not at THE last leaf added.
+
+            //keep traversing the tree and ultimately return left or right
+            if(val <= this.payload)
+            {
+                //we would have added it to the left
+                return this.leftTree.outOfBalanceSecondarily(val, "left");
+            }
+            else
+            {
+                return this.rightTree.outOfBalanceSecondarily(val, "right");
+            }
+        }
+    }
+
+    public int depth()
+    {
+        //boolean-exp?true-stmt:false-stmt
+        return 1 + Math.max((this.leftTree == null?0:this.leftTree.depth()),
+                (this.rightTree == null?0:this.rightTree.depth()));
+    }
+
     public void add(char payload)
     {
         if(payload <= this.payload)
