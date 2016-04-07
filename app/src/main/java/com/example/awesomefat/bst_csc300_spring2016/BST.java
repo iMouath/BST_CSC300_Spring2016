@@ -35,20 +35,33 @@ public class BST
 
         //Finaly print out how we are out of balance
         System.out.println("Out of balance: " + outOfBalanceInitial + " - " + outOfBalanceSecondarily);
+
+        BSTCore.outOfBalance =  outOfBalanceInitial + " " + outOfBalanceSecondarily;
     }
 
     public void rebalance()
     {
-        //assuming we are out of balance left-left
-        if(BSTCore.grandParent != null)
+
+        if(BSTCore.outOfBalance == "left left")
         {
-            BSTCore.grandParent.setLeftTree(BSTCore.pivot);
-        } else
-        {
-            BSTCore.theTree.root = BSTCore.pivot;
+            if (BSTCore.grandParent != null) {
+                BSTCore.grandParent.setLeftTree(BSTCore.pivot);
+            } else {
+                BSTCore.theTree.root = BSTCore.pivot;
+            }
+            BSTCore.parent.setLeftTree(null);
+            BSTCore.pivot.add(BSTCore.parent);
         }
-        BSTCore.parent.setLeftTree(null);
-        BSTCore.pivot.add(BSTCore.parent);
+        else
+        {
+            if (BSTCore.grandParent != null) {
+                BSTCore.grandParent.setRightTree(BSTCore.pivot);
+            } else {
+                BSTCore.theTree.root = BSTCore.pivot;
+            }
+            BSTCore.parent.setRightTree(null);
+            BSTCore.pivot.add(BSTCore.parent);
+        }
     }
 
     public void add(char payload)
